@@ -19,10 +19,10 @@ app.get('/users',(req,res)=>{
 });
 app.post('/users',(req, res)=>{
   const {id,name}=req.body;
-  if (!id || !name) {
+  if (!id||!name) {
     return res.status(400).send("Missing id or name");
   }
-  users.push({ id, name, subscriptions: true });
+  users.push({id,name,subscriptions: true });
   res.status(201).send("User added");
 });
 app.post('/borrow',(req,res)=>{
@@ -32,11 +32,11 @@ app.post('/borrow',(req,res)=>{
 });
 app.post('/return',(req,res)=>{
   const {userId,bookId}=req.body;
-  const record=borrowRecords.find(r=>r.userId ===userId &&r.bookId ===bookId &&r.returnDate ===null);
+  const record=borrowRecords.find(r=>r.userId===userId &&r.bookId===bookId &&r.returnDate===null);
   if (!record) return res.status(400).send("Borrow record not found");
   record.returnDate = new Date().toISOString();
   res.send("Book returned");
 });
-app.listen(port, () => {
+app.listen(port,()=>{
   console.log(`Library API running on port ${port}`);
 });
